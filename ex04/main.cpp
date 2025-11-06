@@ -1,12 +1,32 @@
 #include <iostream>
-#include <string>
 #include <fstream>
+#include <string>
+
+static std::string ft_replace(const std::string& line, const std::string& s1, const std::string& s2)
+{
+	if (s1.empty()) return line;
+
+	std::string replaced;
+	std::size_t start = 0;
+
+	while (true) {
+		std::size_t pos = line.find(s1, start);
+		if (pos == std::string::npos) {
+			replaced.append(line.substr(start));
+			break;
+		}
+		replaced.append(line.substr(start, pos - start));
+		replaced.append(s2);
+		start = pos + s1.size();
+	}
+	return replaced;
+}
 
 int main(int argc, char **argv)
 {
 	if (argc != 4) {
-		std::cerr << "Incorrect number of arguments." << std::endl
-			<< "Usage: " << argv[0] << " <filename> <s1> <s2>" << std::endl;
+		std::cerr << "Incorrect number of arguments.\n"
+			<< "Usage: " << argv[0] << " <filename> <s1> <s2>\n";
 		return 1;
 	}
 
@@ -18,38 +38,19 @@ int main(int argc, char **argv)
 
 	std::ifstream infile(filename.c_str());
 	if (!infile.is_open()) {
-		std::cerr << "Error: cannot open '" << filename << "'" << std::endl;
+		std::cerr << "Error: cannot open '" << filename << "'\n";
 		return 1;
 	}
 
-	std::ofstream outfile(outfilename);
+	std::ofstream outfile(outfilename.c_str());
 	if (!outfile.is_open()) {
-		std::cerr << "Error: cannot open '" << outfilename << "'" << std::endl;
+		std::cerr << "Error: cannot open '" << outfilename << "'\n";
 		return 1;
 	}
 
 	std::string line;
-
-	if (s1.empty()) {
-		while (std::getline(infile, line))
-			outfile << line << std::endl;
-		return 0;
-	}
-
 	while (std::getline(infile, line))
-	{
-		std::size_t start = 0;
-		while (true) {
-			std::size_t pos = line.find(s1, start);
-			if (pos == std::string::npos) {
-				outfile << line.substr(start);
-				break;
-			}
-			outfile << line.substr(start, pos - start) << s2;
-			start = pos + s1.size();
-		}
-		outfile << std::endl;
-	}
+		outfile << ft_replace(line, s1, s2) << "\n";
 
 	return 0;
 }
