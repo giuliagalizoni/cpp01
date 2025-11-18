@@ -1,8 +1,7 @@
 #include "../include/Zombie.h"
 #include <iostream>
 
-
-int	main()
+int main()
 {
 	Zombie *horde = zombieHorde(10, "banana");
 

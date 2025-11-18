@@ -1,7 +1,6 @@
 #include "../include/Zombie.h"
 
-
-Zombie* zombieHorde( int N, std::string name )
+Zombie *zombieHorde(int N, std::string name)
 {
 	Zombie *zombieHorde = new Zombie[N];
 
