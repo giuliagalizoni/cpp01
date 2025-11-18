@@ -2,16 +2,19 @@
 #include <fstream>
 #include <string>
 
-static std::string ft_replace(const std::string& line, const std::string& s1, const std::string& s2)
+static std::string ft_replace(const std::string &line, const std::string &s1, const std::string &s2)
 {
-	if (s1.empty()) return line;
+	if (s1.empty())
+		return line;
 
 	std::string replaced;
 	std::size_t start = 0;
 
-	while (true) {
+	while (true)
+	{
 		std::size_t pos = line.find(s1, start);
-		if (pos == std::string::npos) {
+		if (pos == std::string::npos)
+		{
 			replaced.append(line.substr(start));
 			break;
 		}
@@ -24,9 +27,10 @@ static std::string ft_replace(const std::string& line, const std::string& s1, co
 
 int main(int argc, char **argv)
 {
-	if (argc != 4) {
+	if (argc != 4)
+	{
 		std::cerr << "Incorrect number of arguments.\n"
-			<< "Usage: " << argv[0] << " <filename> <s1> <s2>\n";
+				  << "Usage: " << argv[0] << " <filename> <s1> <s2>\n";
 		return 1;
 	}
 
@@ -37,13 +41,15 @@ int main(int argc, char **argv)
 	outfilename.append(".replace");
 
 	std::ifstream infile(filename.c_str());
-	if (!infile.is_open()) {
+	if (!infile.is_open())
+	{
 		std::cerr << "Error: cannot open '" << filename << "'\n";
 		return 1;
 	}
 
 	std::ofstream outfile(outfilename.c_str());
-	if (!outfile.is_open()) {
+	if (!outfile.is_open())
+	{
 		std::cerr << "Error: cannot open '" << outfilename << "'\n";
 		return 1;
 	}
