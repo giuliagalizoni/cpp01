@@ -1,6 +1,6 @@
 #include "../include/Zombie.h"
 
-int	main()
+int main()
 {
 	Zombie *zombie = newZombie("Brain-eater");
 	zombie->announce();
